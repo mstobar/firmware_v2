@@ -31,81 +31,39 @@
  *
  */
 
-/** @brief Blinky using FreeRTOS.
- *
- *
- * NOTE: It's interesting to check behavior differences between standard and
- * tickless mode. Set @ref configUSE_TICKLESS_IDLE to 1, increment a counter
- * in @ref vApplicationTickHook and print the counter value every second
- * inside a task. In standard mode the counter will have a value around 1000.
- * In tickless mode, it will be around 25.
- *
- */
+#ifndef _MAIN_H_
+#define _MAIN_H_
 
 /** \addtogroup rtos_blink FreeRTOS blink example
  ** @{ */
 
 /*==================[inclusions]=============================================*/
 
-#include "board.h"
+/*==================[cplusplus]==============================================*/
 
-#include "FreeRTOS.h"
-#include "FreeRTOSConfig.h"
-#include "task.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include "main.h"
+/*==================[macros]=================================================*/
 
-/*==================[macros and definitions]=================================*/
+/*==================[typedef]================================================*/
 
-/*==================[internal data declaration]==============================*/
+/*==================[external data declaration]==============================*/
 
-/*==================[internal functions declaration]=========================*/
+/*==================[external functions declaration]=========================*/
 
-/** @brief hardware initialization function
- *	@return none
+/** @brief main function
+ * @return main function should never return
  */
-static void initHardware(void);
+int main(void);
 
-/*==================[internal data definition]===============================*/
+/*==================[cplusplus]==============================================*/
 
-/*==================[external data definition]===============================*/
-
-/*==================[internal functions definition]==========================*/
-
-static void initHardware(void)
-{
-    SystemCoreClockUpdate();
-
-    Board_Init();
-
-    Board_LED_Set(0, false);
-    Board_LED_Set(1, true);
+#ifdef __cplusplus
 }
-
-static void task(void * a)
-{
-	while (1) {
-		Board_LED_Toggle(0);
-		Board_LED_Toggle(1);
-		Board_LED_Toggle(1);
-		vTaskDelay(500 / portTICK_RATE_MS);
-	}
-}
-
-/*==================[external functions definition]==========================*/
-
-int main(void)
-{
-	initHardware();
-
-	xTaskCreate(task, (const char *)"task", configMINIMAL_STACK_SIZE*2, 0, tskIDLE_PRIORITY+1, 0);
-
-	vTaskStartScheduler();
-
-	while (1) {
-	}
-}
+#endif
 
 /** @} doxygen end group definition */
-
 /*==================[end of file]============================================*/
+#endif /* #ifndef _MAIN_H_ */

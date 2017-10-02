@@ -148,7 +148,13 @@ void Board_LED_Toggle(uint8_t LEDNumber)
 void Board_Buttons_Init(void)
 {
 	Chip_SCU_PinMux(1,0,MD_PUP|MD_EZI|MD_ZI,FUNC0); /* GPIO0[4], SW1 */
+	Chip_SCU_PinMux(1,1,MD_PUP|MD_EZI|MD_ZI,FUNC0); /* GPIO0[8], SW2 */
+	Chip_SCU_PinMux(1,2,MD_PUP|MD_EZI|MD_ZI,FUNC0); /* GPIO0[9], SW3 */
+	Chip_SCU_PinMux(1,6,MD_PUP|MD_EZI|MD_ZI,FUNC0); /* GPIO1[9], SW4 */
 	Chip_GPIO_SetPinDIRInput(LPC_GPIO_PORT, BUTTONS_BUTTON1_GPIO_PORT_NUM, BUTTONS_BUTTON1_GPIO_BIT_NUM);	// input
+	Chip_GPIO_SetPinDIRInput(LPC_GPIO_PORT, 0, 8);
+	Chip_GPIO_SetPinDIRInput(LPC_GPIO_PORT, 0, 9);
+	Chip_GPIO_SetPinDIRInput(LPC_GPIO_PORT, 1, 9);
 }
 
 uint32_t Buttons_GetStatus(void)
@@ -156,6 +162,15 @@ uint32_t Buttons_GetStatus(void)
 	uint8_t ret = NO_BUTTON_PRESSED;
 	if (Chip_GPIO_GetPinState(LPC_GPIO_PORT, BUTTONS_BUTTON1_GPIO_PORT_NUM, BUTTONS_BUTTON1_GPIO_BIT_NUM) == 0) {
 		ret |= BUTTONS_BUTTON1;
+	}
+	if (Chip_GPIO_GetPinState(LPC_GPIO_PORT, 0, 8) == 0) {
+		ret |= 0x02;
+	}
+	if (Chip_GPIO_GetPinState(LPC_GPIO_PORT, 0, 9) == 0) {
+		ret |= 0x04;
+	}
+	if (Chip_GPIO_GetPinState(LPC_GPIO_PORT, 1, 9) == 0) {
+		ret |= 0x08;
 	}
 	return ret;
 }
