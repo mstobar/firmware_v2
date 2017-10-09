@@ -46,6 +46,7 @@
 #PROJECT = examples/freertos_blinky
 #PROJECT = sapi_examples/edu-ciaa-nxp/sapi_usb_host_01_mass_storage_fatfilesystem
 PROJECT = examples/td3_freertos_01
+#PROJECT = examples/td3_freertos_02
 
 # sapi_examples
 
