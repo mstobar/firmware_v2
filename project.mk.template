@@ -45,10 +45,11 @@
 #PROJECT = examples/adc_fir_dac
 #PROJECT = examples/freertos_blinky
 #PROJECT = sapi_examples/edu-ciaa-nxp/sapi_usb_host_01_mass_storage_fatfilesystem
+PROJECT = examples/td3_freertos_01
 
 # sapi_examples
 
-PROJECT = sapi_examples/edu-ciaa-nxp/gpio_01_switches_leds
+#PROJECT = sapi_examples/edu-ciaa-nxp/gpio_01_switches_leds
 #PROJECT = sapi_examples/edu-ciaa-nxp/gpio_02_blinky
 #PROJECT = sapi_examples/edu-ciaa-nxp/gpio_03_blinky_switch
 #PROJECT = sapi_examples/edu-ciaa-nxp/gpio_04_led_sequences
