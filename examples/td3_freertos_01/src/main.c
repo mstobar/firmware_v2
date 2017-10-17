@@ -1,49 +1,5 @@
-/* Copyright 2015, Pablo Ridolfi
- * All rights reserved.
- *
- * This file is part of lpc1769_template.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. Neither the name of the copyright holder nor the names of its
- *    contributors may be used to endorse or promote products derived from this
- *    software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
+/* Copyright 2017
  */
-
-/** @brief Blinky using FreeRTOS.
- *
- *
- * NOTE: It's interesting to check behavior differences between standard and
- * tickless mode. Set @ref configUSE_TICKLESS_IDLE to 1, increment a counter
- * in @ref vApplicationTickHook and print the counter value every second
- * inside a task. In standard mode the counter will have a value around 1000.
- * In tickless mode, it will be around 25.
- *
- */
-
-/** \addtogroup rtos_blink FreeRTOS blink example
- ** @{ */
 
 /*==================[inclusions]=============================================*/
 
@@ -56,10 +12,6 @@
 #include "semphr.h"
 
 #include "main.h"
-
-//#include "timer.h"
-//#include "serie.h"
-
 
 /*==================[macros and definitions]=================================*/
 
@@ -95,10 +47,8 @@ static HORA hora_act ={0,0,0};
 static void initHardware(void)
 {
     SystemCoreClockUpdate();
-
     Board_Init();
-    //Board_LED_Init();
-
+ 
 }
 
 uint8_t LeeEntradas(void)
@@ -106,10 +56,8 @@ uint8_t LeeEntradas(void)
 	return Buttons_GetStatus();
 }
 
-
 static void InitSerie(void)
 {
-    //Board_UART_Init (LPC_USART2);
     Chip_UART_Init(LPC_USART2);
 	Chip_UART_SetBaud(LPC_USART2, 115200);  /* Set Baud rate */
 	Chip_UART_ConfigData(LPC_USART2, (UART_LCR_WLEN8 | UART_LCR_SBS_1BIT));
@@ -236,7 +184,5 @@ int main(void)
 	NVIC_EnableIRQ(RITIMER_IRQn);
 	vTaskStartScheduler(); /* y por último se arranca el planificador . */
 }
-
-/** @} doxygen end group definition */
 
 /*==================[end of file]============================================*/
